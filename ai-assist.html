@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Assist | CalmCampus</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #e6f0e9;
+      color: #2e3d3b;
+      margin: 0;
+      padding: 0 20px;
+    }
+    header {
+      background-color: #207567;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(32, 117, 103, 0.3);
+    }
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+    ul {
+      list-style: disc inside;
+      margin-left: 20px;
+    }
+    button {
+      background: #207567;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #145243;
+    }
+    a {
+      color: #207567;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      margin-top: 50px;
+      font-size: 14px;
+      color: #666;
+    }
+    .section {
+      margin-bottom: 40px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    select, textarea, input[type="text"] {
+      width: 100%;
+      max-width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      margin-bottom: 10px;
+      resize: vertical;
+    }
+    textarea {
+      min-height: 80px;
+    }
+    #gratitude-list {
+      margin-top: 10px;
+      background: #f4f9f7;
+      padding: 10px;
+      border-radius: 6px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    #quote {
+      font-style: italic;
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #3a5f4a;
+    }
+    iframe {
+      width: 100%;
+      height: 180px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AI Assist</h1>
+    <p>Your AI-powered mental wellness companion</p>
+  </header>
+
+  <main>
+    <section class="section" id="quote-section">
+      <h2>🌟 Calming Quote</h2>
+      <p id="quote">Loading inspirational quote...</p>
+    </section>
+
+    <section class="section">
+      <h2>Instant Help & Support</h2>
+      <p>Our AI assistant provides quick guidance to help you manage stress, anxiety, and more. Try the tips below or chat with an AI therapist for deeper support.</p>
+    </section>
+
+    <section class="section">
+      <h3>Quick Stress Relief Tips</h3>
+      <ul>
+        <li>Take deep breaths: Inhale slowly for 4 seconds, hold for 7 seconds, and exhale for 8 seconds.</li>
+        <li>Practice mindfulness: Focus on the present moment without judgment.</li>
+        <li>Try progressive muscle relaxation: Tense and release muscles slowly.</li>
+        <li>Step outside for fresh air and sunlight when possible.</li>
+        <li>Write down your thoughts to release mental clutter.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>Calming Breathing Exercise</h3>
+      <button onclick="startBreathingExercise()">Start 5-Minute Breathing Exercise</button>
+      <p id="breathing-text" style="margin-top: 15px; font-style: italic;"></p>
+    </section>
+
+    <section class="section">
+      <h3>Mood Tracker</h3>
+      <label for="mood-select">How are you feeling right now?</label>
+      <select id="mood-select">
+        <option value="" selected disabled>Select your mood</option>
+        <option value="happy">😊 Happy</option>
+        <option value="anxious">😟 Anxious</option>
+        <option value="sad">😢 Sad</option>
+        <option value="angry">😠 Angry</option>
+        <option value="calm">😌 Calm</option>
+        <option value="stressed">😰 Stressed</option>
+      </select>
+      <p id="mood-response" style="margin-top: 12px; font-weight: bold;"></p>
+    </section>
+
+    <section class="section">
+      <h3>Gratitude Journal</h3>
+      <label for="gratitude-input">Write something you're grateful for today:</label>
+      <textarea id="gratitude-input" placeholder="I am grateful for..."></textarea>
+      <button onclick="addGratitude()">Add Gratitude</button>
+
+      <div id="gratitude-list">
+        <strong>Your Gratitude Notes:</strong>
+        <ul id="gratitude-items"></ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Guided Meditation</h3>
+      <p>Listen to this 10-minute calming meditation:</p>
+      <iframe src="https://www.youtube.com/embed/inpok4MKVLM" title="Guided Meditation" allowfullscreen></iframe>
+    </section>
+
+    <section class="section">
+      <h3>Chat with AI Therapist</h3>
+      <p>For personalized support, try this free mental health chatbot:</p>
+      <a href="https://www.woebot.io/" target="_blank" rel="noopener noreferrer">Woebot - Mental Health Chatbot</a>
+    </section>
+
+    <section class="section">
+      <h3>Recommended Resources Based on Mood</h3>
+      <p>Select your mood above to see tailored book and resource suggestions.</p>
+      <ul id="resource-list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 CalmCampus. All rights reserved.
+  </footer>
+
+  <script>
+    // Calming Quotes Array
+    const quotes = [
+      "“You don't have to control your thoughts. You just have to stop letting them control you.” – Dan Millman",
+      "“The greatest weapon against stress is our ability to choose one thought over another.” – William James",
+      "“Almost everything will work again if you unplug it for a few minutes, including you.” – Anne Lamott",
+      "“Peace comes from within. Do not seek it without.” – Buddha",
+      "“Sometimes the most productive thing you can do is relax.” – Mark Black",
+      "“Keep your face always toward the sunshine—and shadows will fall behind you.” – Walt Whitman",
+      "“Tension is who you think you should be. Relaxation is who you are.” – Chinese Proverb"
+    ];
+
+    // Display random calming quote
+    function showQuote() {
+      const quoteElem = document.getElementById('quote');
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      quoteElem.textContent = quotes[randomIndex];
+    }
+
+    // Breathing exercise
+    function startBreathingExercise() {
+      const textElem = document.getElementById('breathing-text');
+      const steps = [
+        "Inhale slowly through your nose for 4 seconds...",
+        "Hold your breath gently for 7 seconds...",
+        "Exhale slowly through your mouth for 8 seconds...",
+        "Repeat this cycle for 5 minutes to calm your mind."
+      ];
+      let stepIndex = 0;
+      textElem.textContent = steps[stepIndex];
+
+      const interval = setInterval(() => {
+        stepIndex++;
+        if (stepIndex >= steps.length) {
+          clearInterval(interval);
+          textElem.textContent = "Great job! Remember to breathe mindfully throughout your day.";
+        } else {
+          textElem.textContent = steps[stepIndex];
+        }
+      }, 7000);
+    }
+
+    // Mood Tracker logic
+    const moodSelect = document.getElementById('mood-select');
+    const moodResponse = document.getElementById('mood-response');
+    const resourceList = document.getElementById('resource-list');
+
+    const moodResources = {
+      happy: [
+        { title: "The Gifts of Imperfection", author: "Brené Brown", link: "https://brenebrown.com/" },
+        { title: "10% Happier", author: "Dan Harris", link: "https://www.amazon.com/10-Happier-Story-Obsessed-Meditation/dp/0062265431" }
+      ],
+      anxious: [
+        { title: "The Anxiety and Phobia Workbook", author: "Edmund Bourne", link: "https://www.amazon.com/Anxiety-Phobia-Workbook-Edmund-Bourne/dp/1684034832" },
+        { title: "Rewire Your Anxious Brain", author: "Catherine M. Pittman", link: "https://www.amazon.com/Rewire-Your-Anxious-Brain-Understand/dp/1684032442" }
+      ],
+      sad: [
+        { title: "Feeling Good: The New Mood Therapy", author: "David D. Burns", link: "https://www.amazon.com/Feeling-Good-New-Mood-Therapy/dp/0380810336" },
+        { title: "Lost Connections", author: "Johann Hari", link: "https://www.amazon.com/Lost-Connections-Uncovering-Depression-Anxiety/dp/163286830X" }
+      ],
+      angry: [
+        { title: "The Dance of Anger", author: "Harriet Lerner", link: "https://www.amazon.com/Dance-Anger-Women-Relationships-Psychology/dp/0465060678" },
+        { title: "Anger: Wisdom for Cooling the Flames", author: "Thich Nhat Hanh", link: "https://www.amazon.com/Anger-Wisdom-Cooling-Thich-Hanh/dp/0062224662" }
+      ],
+      calm: [
+        { title: "Wherever You Go, There You Are", author: "Jon Kabat-Zinn", link: "https://www.amazon.com/Wherever-You-There-Are-Mindfulness/dp/1401307787" },
+        { title: "Radical Acceptance", author: "Tara Brach", link: "https://www.amazon.com/Radical-Acceptance-Fear-Shame-Personal/dp/0553380990" }
+      ],
+      stressed: [
+        { title: "Burnout: The Secret to Unlocking the Stress Cycle", author: "Emily Nagoski", link: "https://www.amazon.com/Burnout-Secret-Unlocking-Stress-Cycle/dp/1982131477" },
+        { title: "Why Zebras Don't Get Ulcers", author: "Robert M. Sapolsky", link: "https://www.amazon.com/Why-Zebras-Dont-Ulcers-Stress/dp/0805073698" }
+      ],
+    };
+
+    moodSelect.addEventListener('change', () => {
+      const mood = moodSelect.value;
+      moodResponse.textContent = getMoodMessage(mood);
+      displayResources(mood);
+    });
+
+    function getMoodMessage(mood) {
+      const messages = {
+        happy: "That's wonderful! Keep nurturing your happiness.",
+        anxious: "Take a deep breath. You're not alone.",
+        sad: "It's okay to feel down sometimes. Take care of yourself.",
+        angry: "Try to channel your anger into something positive.",
+        calm: "Enjoy your calm and stay mindful.",
+        stressed: "Remember to pause and breathe deeply."
+      };
+      return messages[mood] || "";
+    }
+
+    function displayResources(mood) {
+      resourceList.innerHTML = "";
+      if (!moodResources[mood]) return;
+
+      moodResources[mood].forEach(resource => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = resource.link;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = `${resource.title} by ${resource.author}`;
+        li.appendChild(link);
+        resourceList.appendChild(li);
+      });
+    }
+
+    // Gratitude Journal
+    const gratitudeInput = document.getElementById('gratitude-input');
+    const gratitudeItems = document.getElementById('gratitude-items');
+
+    function loadGratitude() {
+      const saved = JSON.parse(localStorage.getItem('gratitudeNotes')) || [];
+      saved.forEach(note => {
+        const li = document.createElement('li');
+        li.textContent = note;
+        gratitudeItems.appendChild(li);
+      });
+    }
+
+    function addGratitude() {
+      const text = gratitudeInput.value.trim();
+      if (!text) return alert("Please write something you're grateful for.");
+
+      const li = document.createElement('li');
+      li.textContent = text;
+      gratitudeItems.appendChild(li);
+
+      // Save to localStorage
+      const saved = JSON.parse(localStorage.getItem('gratitudeNotes')) || [];
+      saved.push(text);
+      localStorage.setItem('gratitudeNotes', JSON.stringify(saved));
+
+      gratitudeInput.value = "";
+    }
+
+    // Initialize
+    showQuote();
+    loadGratitude();
+  </script>
+</body>
+</html>
